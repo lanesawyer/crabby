@@ -18,35 +18,45 @@ struct Score {
 }
 
 fn ask_questions() -> Result<(), Box<dyn Error>> {
-    let mut rdr = Reader::from_path("questions.csv")?;
-    let mut scores = Vec::<usize>::new();
+    let mut csv_reader = Reader::from_path("questions.csv")?;
     
-    for result in rdr.deserialize() {
-        let record: Question = result?;
+    let scores = csv_reader.deserialize().map(|result| -> usize {
+        let record: Question = result.expect("malformed question encountered");
         println!("{:?} ({} to {})", record.text, record.lower_bound, record.upper_bound);
-        let answer = get_input();
-        scores.push(answer.parse::<usize>()?);
-    }
+        loop {
+            let answer = get_console_input();
+            let parsed_answer = answer.parse::<usize>();
+            if parsed_answer.is_err() {
+                println!("Please enter a number");
+            } else if let Ok(parsed) = parsed_answer {
+                if parsed >= record.lower_bound && parsed <= record.upper_bound {
+                    return parsed;
+                }
+                println!("Please enter a number in the range");
+            }
+        }
+    }).collect::<Vec<usize>>();
 
-    println!("Your score: {:?}", scores);
+    println!("Your answers: {:?}", scores);
+    let total = scores.iter().sum();
 
-    let scale_label = parse_scale(scores.iter().sum())?;
-    println!("{}", scale_label);
+    let scale_label = find_answer_on_scale(total)?;
+    println!("Total: {} - {}", total, scale_label);
 
     println!("Any notes on this week?");
-    let _notes = get_input();
+    let _notes = get_console_input();
 
     println!("Got it. See ya next time!");
     Ok(())
 }
 
-fn get_input() -> String {
+fn get_console_input() -> String {
     let mut buffer = String::new();
     std::io::stdin().read_line(&mut buffer).expect("Failed to get input");
     buffer.trim().to_string()
 }
 
-fn parse_scale(user_answer: usize) -> Result<String, Box<dyn Error>> {
+fn find_answer_on_scale(user_answer: usize) -> Result<String, Box<dyn Error>> {
     let mut rdr = Reader::from_path("scale.csv")?;
     for result in rdr.deserialize() {
         let record: Score = result?;
@@ -59,7 +69,7 @@ fn parse_scale(user_answer: usize) -> Result<String, Box<dyn Error>> {
 
 fn main() {
     if let Err(err) = ask_questions() {
-        println!("error running question parsing: {}", err);
+        println!("Error asking questions: {}", err);
         process::exit(1);
     }
 }
