@@ -17,13 +17,30 @@ struct Score {
     label: String,
 }
 
-fn parse_questions() -> Result<(), Box<dyn Error>> {
+fn ask_questions() -> Result<(), Box<dyn Error>> {
     let mut rdr = Reader::from_path("questions.csv")?;
+    let mut scores = Vec::<usize>::new();
+    
     for result in rdr.deserialize() {
         let record: Question = result?;
-        println!("{:?}", record);
+        println!("{:?} ({} to {})", record.text, record.lower_bound, record.upper_bound);
+        let answer = get_input();
+        scores.push(answer.parse::<usize>()?);
     }
+
+    println!("Your score: {:?}", scores);
+
+    println!("Any notes on this week?");
+    let notes = get_input();
+
+    println!("{}", notes);
     Ok(())
+}
+
+fn get_input() -> String {
+    let mut buffer = String::new();
+    std::io::stdin().read_line(&mut buffer).expect("Failed to get input");
+    buffer.trim().to_string()
 }
 
 fn parse_scale() -> Result<(), Box<dyn Error>> {
@@ -36,7 +53,7 @@ fn parse_scale() -> Result<(), Box<dyn Error>> {
 }
 
 fn main() {
-    if let Err(err) = parse_questions() {
+    if let Err(err) = ask_questions() {
         println!("error running question parsing: {}", err);
         process::exit(1);
     }
