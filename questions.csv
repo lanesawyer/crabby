@@ -1,16 +1,16 @@
-text,answers
-"Sadness: Have you been feeling sad or down in the dumps?",0-3
-"Discouragement: Does the future look hopeless?",0-3
-"Low self-esteem: Do you feel worthless or think of yourself as a failure?",0-3
-"Inferiority: Do you feel inadequate or inferior to others?",0-3
-"Guilt: Do you get self-critical and blame yourself for everything?",0-3
-"Indecisiveness: Do you have trouble making up your mind about things?",0-3
-"Irritability and frustration: Have you been feeling resentful and angry a good deal of the time?",0-3
-"Loss of interest in life: Have you lost interest in your career, your hobbies, your family, or your friends?",0-3
-"Loss of motivation: Do you feel overwhelmed and have to push yourself hard to do things?",0-3
-"Poor self-image: Do you think you’re looking old or unattractive?",0-3
-"Appetite changes: Have you lost your appetite? Or do you overeat or binge compulsively?",0-3
-"Sleep changes: Do you suffer from insomnia and find it hard to get a good night’s sleep? Or are you excessively tired and sleeping too much?",0-3
-"Loss of libido: Have you lost your interest in sex?",0-3
-"Hypochondriasis: Do you worry a great deal about your health?",0-3
-"Suicidal impulses: Do you have thoughts that life is not worth living or think that you might be better off dead?",0-3
+text,lower_bound,upper_bound
+"Sadness: Have you been feeling sad or down in the dumps?",0,3
+"Discouragement: Does the future look hopeless?",0,3
+"Low self-esteem: Do you feel worthless or think of yourself as a failure?",0,3
+"Inferiority: Do you feel inadequate or inferior to others?",0,3
+"Guilt: Do you get self-critical and blame yourself for everything?",0,3
+"Indecisiveness: Do you have trouble making up your mind about things?",0,3
+"Irritability and frustration: Have you been feeling resentful and angry a good deal of the time?",0,3
+"Loss of interest in life: Have you lost interest in your career, your hobbies, your family, or your friends?",0,3
+"Loss of motivation: Do you feel overwhelmed and have to push yourself hard to do things?",0,3
+"Poor self-image: Do you think you’re looking old or unattractive?",0,3
+"Appetite changes: Have you lost your appetite? Or do you overeat or binge compulsively?",0,3
+"Sleep changes: Do you suffer from insomnia and find it hard to get a good night’s sleep? Or are you excessively tired and sleeping too much?",0,3
+"Loss of libido: Have you lost your interest in sex?",0,3
+"Hypochondriasis: Do you worry a great deal about your health?",0,3
+"Suicidal impulses: Do you have thoughts that life is not worth living or think that you might be better off dead?",0,3

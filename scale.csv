@@ -1,0 +1,6 @@
+lower_bound,upper_bound,label
+0,4,Minimal or no Depression
+5,10,Borderline Depression
+11,20,Mild Depression
+21,30,Moderate Depression
+31,45,Severe Depression
