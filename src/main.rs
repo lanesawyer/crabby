@@ -30,10 +30,13 @@ fn ask_questions() -> Result<(), Box<dyn Error>> {
 
     println!("Your score: {:?}", scores);
 
-    println!("Any notes on this week?");
-    let notes = get_input();
+    let scale_label = parse_scale(scores.iter().sum())?;
+    println!("{}", scale_label);
 
-    println!("{}", notes);
+    println!("Any notes on this week?");
+    let _notes = get_input();
+
+    println!("Got it. See ya next time!");
     Ok(())
 }
 
@@ -43,22 +46,20 @@ fn get_input() -> String {
     buffer.trim().to_string()
 }
 
-fn parse_scale() -> Result<(), Box<dyn Error>> {
+fn parse_scale(user_answer: usize) -> Result<String, Box<dyn Error>> {
     let mut rdr = Reader::from_path("scale.csv")?;
     for result in rdr.deserialize() {
         let record: Score = result?;
-        println!("{:?}", record);
+        if user_answer >= record.lower_bound && user_answer <= record.upper_bound {
+            return Ok(record.label);
+        }
     }
-    Ok(())
+    Ok("Didn't find score".to_string())
 }
 
 fn main() {
     if let Err(err) = ask_questions() {
         println!("error running question parsing: {}", err);
-        process::exit(1);
-    }
-    if let Err(err) = parse_scale() {
-        println!("error running scale parsing: {}", err);
         process::exit(1);
     }
 }
